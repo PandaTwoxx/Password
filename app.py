@@ -37,4 +37,20 @@ def add_symbols(text: str):
     return text
 
 if __name__ == "__main__":
-    serve(app, host = '0.0.0.0', port = 8000)
+    choice = input("Enter CLI or WEB: ")
+    if choice == "WEB":
+        serve(app, host = '0.0.0.0', port = 8000)
+    else:
+        while True:
+            seed = input("Enter Seed(Leave blank for random): ")
+            length = int(input("Enter Length: "))
+            if length < 1 or length is None:
+                length = 1
+            print("Generating...")
+            result = ''
+            for i in range(length):
+                if seed == '':
+                    result = result + add_symbols(hash())
+                else:
+                    result = result + add_symbols(hash(seed))
+            print('Password: ' + result) 
