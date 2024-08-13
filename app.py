@@ -38,12 +38,13 @@ def add_symbols(text: str):
 
 if __name__ == "__main__":
     choice = input("Enter CLI or WEB: ")
-    if choice == "WEB":
+    if choice.upper() == "WEB":
         serve(app, host = '0.0.0.0', port = 8000)
     else:
         while True:
             seed = input("Enter Seed(Leave blank for random): ")
             length = int(input("Enter Length: "))
+            putInFIle = bool(input("Put in file(True/False)"))
             if length < 1 or length is None:
                 length = 1
             print("Generating...")
@@ -53,4 +54,10 @@ if __name__ == "__main__":
                     result = result + add_symbols(hash())
                 else:
                     result = result + add_symbols(hash(seed))
-            print('Password: ' + result) 
+            if putInFIle:
+                with open("password.txt", "w") as file:
+                    file.write(result)
+                    file.close()
+                print("Saved in password.txt")
+            else:
+                print('Password: ' + result) 
